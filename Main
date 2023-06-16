@@ -1,0 +1,81 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the total amount: ");
+        double totalAmount = scanner.nextDouble();
+
+        System.out.println("Select a payment method:");
+        System.out.println("1. Cash");
+        System.out.println("2. Credit Card");
+        int paymentMethod = scanner.nextInt();
+
+        switch (paymentMethod) {
+            case 1:
+                processCashPayment(totalAmount);
+                break;
+            case 2:
+                processCreditCardPayment(totalAmount);
+                break;
+            default:
+                System.out.println("Invalid payment method selected.");
+                break;
+        }
+    }
+
+    private static void processCashPayment(double totalAmount) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the payment amount: ");
+        double paymentAmount = scanner.nextDouble();
+
+        if (paymentAmount >= totalAmount) {
+            double change = paymentAmount - totalAmount;
+            System.out.println("Payment successful!");
+            System.out.println("Change: " + change);
+        } else {
+            System.out.println("Insufficient payment amount. Please try again.");
+        }
+    }
+
+    private static void processCreditCardPayment(double totalAmount) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the credit card number: ");
+        String cardNumber = scanner.next();
+
+        System.out.print("Enter the card holder's name: ");
+        String cardHolderName = scanner.next();
+
+        System.out.print("Enter the PIN: ");
+        String pin1= scanner.next();
+        
+        int pin = 1234;
+        int maxAttempts = 3;
+
+        Scanner scan = new Scanner(System.in);
+
+        int attempts = 0;
+        boolean isAuthenticated = false;
+
+        while (attempts < maxAttempts && ! isAuthenticated) {
+            System.out.print("Enter your PIN: ");
+            int enteredPin = scanner.nextInt();
+
+            if (enteredPin == pin) {
+                System.out.println("PIN correct. Access granted!");
+                System.out.println("Payment successful!");
+                isAuthenticated = true;
+            } else {
+                System.out.println("Incorrect PIN. Please try again.");
+                attempts++;
+            }
+        }
+
+        if (!isAuthenticated) {
+            System.out.println("Maximum attempts reached. Access denied!");
+        }
+    }
+}
